@@ -1,0 +1,16 @@
+# core.autocrlf is true on this machine. Git sniffs file types by content, and the sample
+# takeoff PDFs contain no early NUL bytes — so git misclassified them as TEXT and would have
+# applied LF->CRLF conversion, corrupting every downloadable sample on the live site.
+# Mark every binary asset explicitly. Do not remove.
+*.pdf   binary
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.webp  binary
+*.ico   binary
+
+# Keep the site's own source normalised.
+*.html  text eol=lf
+*.xml   text eol=lf
+*.txt   text eol=lf
+CNAME   text eol=lf

@@ -15,7 +15,7 @@
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="favicon.png">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"ProfessionalService","name":"Caliper","description":"Commercial and multi-family quantity takeoffs for building envelope and finishes trades.","url":"https://calipertakeoffs.com/","areaServed":"US","priceRange":"$$"}
+{"@context":"https://schema.org","@type":"ProfessionalService","name":"Caliper","description":"Commercial and multi-family quantity takeoffs for building envelope and finishes trades.","url":"https://calipertakeoffs.com/","areaServed":"US","founder":{"@type":"Person","name":"Adam Abshire"},"provider":{"@type":"Person","name":"Adam Abshire"}}
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -95,9 +95,19 @@ nav .btn-nav{background:var(--off); color:var(--black); padding:8px 16px; border
 .area-pulse{opacity:0; fill:rgba(237,237,233,.16); animation:floorpulse 2.4s ease forwards;}
 @keyframes floorpulse{0%{opacity:0;} 45%{opacity:1;} 100%{opacity:0;}}
 
-.trust-strip{background:var(--black-2); border-top:1px solid rgba(255,255,255,.06); border-bottom:1px solid rgba(255,255,255,.06);
-  padding:16px 0; text-align:center; font-size:.85rem; color:var(--steel); font-weight:500;}
-.trust-strip span{color:rgba(255,255,255,.15); margin:0 10px;}
+/* hero credibility strip — mirrors the three-cell band on the Caliper banner */
+.trust-strip{display:flex; flex-wrap:wrap; margin-top:34px; border-top:1px solid rgba(255,255,255,.1); padding-top:20px;}
+.trust-strip .t{padding-right:26px; margin-right:26px; border-right:1px solid rgba(255,255,255,.1);}
+.trust-strip .t:last-child{border-right:0; margin-right:0; padding-right:0;}
+.trust-strip .t .k{
+  display:block; font-family:var(--font-display); font-size:.62rem; font-weight:700;
+  letter-spacing:.13em; text-transform:uppercase; color:var(--red); margin-bottom:5px;
+}
+.trust-strip .t .v{
+  display:block; font-family:var(--font-serif); font-size:1.35rem; font-weight:600;
+  color:var(--off); line-height:1.15; font-variant-numeric:tabular-nums;
+}
+.trust-strip .t .v small{font-family:var(--font-sans); font-size:.8rem; font-weight:500; color:var(--steel);}
 
 section.deliv{padding:76px 0;}
 .section-label{color:var(--red); font-weight:700; font-size:.75rem; letter-spacing:.1em; text-transform:uppercase; margin-bottom:10px;}
@@ -107,11 +117,82 @@ section.deliv{padding:76px 0;}
 .deliv-card h3{font-family:var(--font-serif); font-size:1.05rem; margin-bottom:8px; font-weight:600;}
 .deliv-card p{color:var(--steel); font-size:.94rem;}
 
-footer{padding:26px 0; text-align:center; font-size:.82rem; color:var(--steel); border-top:1px solid rgba(255,255,255,.06);}
+/* --- sample viewer (the deliverable, shown not described) --- */
+.deliv-sub{color:var(--steel); font-size:1rem; max-width:620px; margin:-18px 0 30px;}
+.sample{display:grid; grid-template-columns:1.12fr 1fr; gap:20px; align-items:start;}
+.sample-pane{background:var(--black-2); border:1px solid rgba(255,255,255,.08); border-radius:6px; overflow:hidden;}
+.pane-tag{
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+  padding:11px 16px; border-bottom:1px solid rgba(255,255,255,.08);
+  font-family:var(--font-display); font-size:.7rem; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--steel); font-weight:600;
+}
+.pane-tag .badge{
+  font-family:var(--font-sans); font-size:.62rem; letter-spacing:.06em; color:var(--red);
+  border:1px solid rgba(213,71,58,.45); border-radius:20px; padding:3px 9px; white-space:nowrap;
+}
+.pane-tag .badge.zoom{color:var(--steel); border-color:rgba(124,138,151,.4);}
+.plan-view[hidden]{display:none;}
+.plan-view a{display:block; position:relative;}
+.plan-shot{width:100%; height:auto; display:block; background:#F7F6F2; transition:opacity .2s ease;}
+.plan-view a:hover .plan-shot{opacity:.88;}
+.plan-view a:focus-visible{outline:2px solid var(--cyan); outline-offset:-2px;}
+.plan-slot{
+  aspect-ratio:4/3; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:8px; text-align:center; padding:26px; color:var(--steel); font-size:.85rem; line-height:1.6;
+  background:repeating-linear-gradient(45deg, rgba(124,138,151,.06) 0 8px, transparent 8px 16px);
+  border:1px dashed rgba(124,138,151,.3); margin:14px; border-radius:4px;
+}
+.plan-caption{padding:12px 16px; border-top:1px solid rgba(255,255,255,.08); color:var(--steel); font-size:.82rem;}
+
+.sample-tabs{display:flex; flex-wrap:wrap; gap:0; border-bottom:1px solid rgba(255,255,255,.08); padding:0 8px;}
+.sample-tabs button{
+  background:none; border:0; border-bottom:2px solid transparent; cursor:pointer;
+  font-family:var(--font-sans); font-size:.78rem; font-weight:600; color:var(--steel);
+  padding:12px 10px; transition:color .2s ease, border-color .2s ease;
+}
+.sample-tabs button:hover{color:var(--off);}
+.sample-tabs button[aria-selected="true"]{color:var(--off); border-bottom-color:var(--red);}
+.sample-tabs button:focus-visible{outline:2px solid var(--cyan); outline-offset:-2px;}
+
+.sample-panel[hidden]{display:none;}
+.sample-meta{padding:14px 16px 10px; font-size:.82rem; color:var(--steel); border-bottom:1px solid rgba(255,255,255,.06);}
+.sample-meta strong{color:var(--off); font-weight:600; display:block; font-size:.9rem; margin-bottom:2px;}
+table.qto{width:100%; border-collapse:collapse; font-size:.83rem;}
+table.qto td{padding:9px 16px; border-bottom:1px solid rgba(255,255,255,.06); color:var(--off); vertical-align:top;}
+table.qto td.q{
+  text-align:right; white-space:nowrap; font-family:var(--font-display); font-weight:600;
+  color:var(--cyan); font-variant-numeric:tabular-nums;
+}
+table.qto tr:last-child td{border-bottom:0;}
+.sample-foot{
+  display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px;
+  padding:14px 16px; border-top:1px solid rgba(255,255,255,.08); background:rgba(13,30,48,.5);
+}
+.sample-foot .more{font-size:.78rem; color:var(--steel);}
+.dl{
+  font-size:.8rem; font-weight:600; color:var(--off); border:1px solid rgba(255,255,255,.2);
+  border-radius:4px; padding:8px 14px; transition:border-color .2s ease, background-color .2s ease;
+}
+.dl:hover{border-color:var(--red); background:rgba(213,71,58,.12);}
+.dl:focus-visible{outline:2px solid var(--cyan); outline-offset:2px;}
+
+footer{padding:40px 0 34px; text-align:center; border-top:1px solid rgba(255,255,255,.06);}
+footer .tagline{
+  font-family:var(--font-serif); font-style:italic; font-weight:600; font-size:1.15rem;
+  color:var(--off); margin-bottom:10px;
+}
+footer .fine{font-size:.82rem; color:var(--steel);}
+footer .fine a{border-bottom:1px solid rgba(255,255,255,.15);}
+footer .fine a:hover{color:var(--off); border-bottom-color:var(--red);}
 
 h2.section-title{font-family:var(--font-serif); font-weight:600; font-size:1.85rem; margin-bottom:28px; color:var(--off);}
 
 .not-line{margin-top:26px; padding:16px 20px; background:rgba(213,71,58,.08); border-left:3px solid var(--red); font-size:.95rem; color:var(--off);}
+.reachable{
+  margin-top:22px; font-family:var(--font-serif); font-style:italic; font-size:1.05rem;
+  color:var(--off); opacity:.9;
+}
 
 .trades{background:var(--black-2); padding:76px 0;}
 .trade-cols{display:grid; grid-template-columns:1fr 1fr; gap:40px;}
@@ -126,30 +207,91 @@ h2.section-title{font-family:var(--font-serif); font-weight:600; font-size:1.85r
 .step h3{font-size:1.05rem; color:var(--off); margin-bottom:8px; font-weight:600;}
 .step p{font-size:.92rem; color:var(--steel);}
 
+.pricing{padding:76px 0;}
+.pricing-sub{color:var(--steel); max-width:620px; margin:-16px 0 32px;}
+.price-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+.price-card{
+  background:var(--black-2); border:1px solid rgba(255,255,255,.08); border-radius:6px;
+  padding:24px; border-top:2px solid var(--red);
+  transition:transform .25s ease, border-color .25s ease;
+}
+.price-card:hover{transform:translateY(-3px);}
+.price-card h3{font-family:var(--font-serif); font-size:1.08rem; font-weight:600; margin-bottom:10px;}
+.price-card p{color:var(--steel); font-size:.93rem;}
+
 .about-sec{padding:76px 0; background:var(--black-2);}
-.about-sec p{max-width:680px; font-size:1rem; color:var(--steel); margin-bottom:14px;}
-.about-sec strong{color:var(--off);}
+.about-sec strong{color:var(--off); font-weight:600;}
+
+.note{display:grid; grid-template-columns:190px 1fr; gap:36px; align-items:start;}
+.portrait{margin:0;}
+.portrait img{
+  width:100%; height:auto; display:block; border-radius:50%;
+  box-shadow:0 0 0 1px rgba(255,255,255,.14), 0 14px 34px -14px rgba(0,0,0,.65);
+  filter:grayscale(.12) contrast(1.02);
+}
+.portrait figcaption{
+  margin-top:11px; font-family:var(--font-display); font-size:.68rem; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--steel);
+}
+.note-body p{max-width:66ch; font-size:1rem; color:var(--steel); margin-bottom:15px;}
+.note-body .sig{
+  font-family:var(--font-serif); font-style:italic; font-weight:600; font-size:1.7rem;
+  color:var(--off); margin:26px 0 3px; opacity:.92;
+}
+.note-body .sig-name{
+  font-family:var(--font-display); font-size:.68rem; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--steel); margin:0;
+}
 
 .contact{padding:76px 0;}
-.contact .sub{color:var(--steel); margin-bottom:32px; max-width:560px;}
-.contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:start;}
-.contact-direct h3{font-size:1rem; margin-bottom:10px; color:var(--off); font-weight:600;}
-.contact-direct p{color:var(--steel); font-size:.92rem; margin-bottom:16px;}
-.form-card{background:var(--black-2); border:1px solid rgba(255,255,255,.08); border-radius:6px; padding:24px;}
-.fld{margin-bottom:14px;}
+.contact .sub{color:var(--steel); margin-bottom:32px; max-width:620px;}
+.form-card{background:var(--black-2); border:1px solid rgba(255,255,255,.08); border-radius:6px; padding:28px; max-width:820px;}
+.fgrid{display:grid; grid-template-columns:1fr 1fr; gap:0 20px;}
+.fld.full{grid-column:1/-1;}
+.fld{margin-bottom:18px;}
+.hint{font-size:.8rem; color:var(--steel); margin-top:6px; line-height:1.55;}
+.hint a{color:var(--cyan); border-bottom:1px solid rgba(95,201,232,.35);}
+.hint a:hover{border-bottom-color:var(--cyan);}
+
+/* multi-select trade pills */
+.pillrow{display:flex; flex-wrap:wrap; gap:8px;}
+.pill{
+  background:var(--black); border:1px solid rgba(255,255,255,.14); border-radius:20px;
+  padding:8px 15px; font-family:var(--font-sans); font-size:.85rem; color:var(--steel);
+  cursor:pointer; transition:border-color .18s ease, color .18s ease, background-color .18s ease;
+}
+.pill:hover{color:var(--off); border-color:rgba(255,255,255,.3);}
+.pill[aria-pressed="true"]{
+  border-color:var(--red); color:var(--off); background:rgba(213,71,58,.16); font-weight:600;
+}
+.pill:focus-visible{outline:2px solid var(--cyan); outline-offset:2px;}
+.pill.wide{border-style:dashed;}
+.contact-alt{margin-top:20px; font-size:.88rem; color:var(--steel); max-width:820px;}
+.contact-alt a{color:var(--off); border-bottom:1px solid rgba(255,255,255,.2);}
+.contact-alt a:hover{border-bottom-color:var(--red);}
 .fld label{display:block; font-size:.85rem; font-weight:600; margin-bottom:5px; color:var(--off);}
-.fld input, .fld select, .fld textarea{width:100%; padding:10px 12px; border:1px solid rgba(255,255,255,.14); border-radius:4px; font-family:var(--font-sans); font-size:.95rem; background:var(--black); color:var(--off);}
+.fld input, .fld select, .fld textarea{width:100%; padding:10px 12px; border:1px solid rgba(255,255,255,.14); border-radius:4px; font-family:var(--font-sans); font-size:.95rem; background:var(--black); color:var(--off); color-scheme:dark;}
+.fld input::placeholder, .fld textarea::placeholder{color:var(--steel);}
 .fld select option{background:var(--black-2); color:var(--off);}
 .fld textarea{resize:vertical; min-height:80px;}
 .btn-primary.full{width:100%; border:none; cursor:pointer; font-family:var(--font-sans);}
-#okMsg, #errMsg{display:none; padding:12px; border-radius:4px; margin-top:12px; font-size:.9rem;}
-#okMsg.show{display:block; background:rgba(95,201,232,.12); color:var(--red);}
-#errMsg.show{display:block; background:rgba(213,71,58,.12); color:var(--red);}
+#okMsg, #errMsg{display:none; padding:12px 14px; border-radius:4px; margin-top:14px; font-size:.9rem;}
+#okMsg.show{display:block; background:rgba(95,201,232,.12); color:var(--cyan); border-left:3px solid var(--cyan);}
+#errMsg.show{display:block; background:rgba(213,71,58,.12); color:var(--red); border-left:3px solid var(--red);}
 
 @media(max-width:900px){
   .hero-grid{grid-template-columns:1fr;} .scene{max-width:380px; margin:0 auto;}
   .hero h1{font-size:2rem;} .deliv-grid{grid-template-columns:1fr;}
-  .trade-cols, .steps, .contact-grid{grid-template-columns:1fr;}
+  .trade-cols, .steps, .sample, .price-grid, .fgrid{grid-template-columns:1fr;}
+  .sample-tabs{overflow-x:auto; flex-wrap:nowrap;}
+  .sample-tabs button{white-space:nowrap;}
+  .note{grid-template-columns:1fr; gap:26px;}
+  .portrait{max-width:190px;}
+  .trust-strip{display:grid; grid-template-columns:1fr 1fr; gap:18px 0;}
+  .trust-strip .t{padding-right:0; margin-right:0;}
+  .trust-strip .t:nth-child(odd){border-right:1px solid rgba(255,255,255,.1); padding-right:20px;}
+  .trust-strip .t:nth-child(even){border-right:0; padding-left:20px;}
+  .hero-ctas{flex-wrap:wrap; gap:14px 18px;}
 }
 
 .reveal{opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease;}
@@ -185,8 +327,9 @@ nav .btn-nav:hover{color:var(--black);}
   <div class="wrap">
     <img src="caliper-logo.png" alt="Caliper — Quantity Takeoffs" class="logo-mark">
     <nav>
+      <a href="#deliverable">Sample Takeoff</a>
       <a href="#trades">Trades</a>
-      <a href="#process">How It Works</a>
+      <a href="#pricing">Pricing</a>
       <a href="#contact" class="btn-nav">Send Plans</a>
     </nav>
   </div>
@@ -196,10 +339,18 @@ nav .btn-nav:hover{color:var(--black);}
   <div class="wrap hero-grid">
     <div>
       <div class="eyebrow">Building Envelope - Finishes - Structural</div>
-      <h1>Precision You Can Build On.</h1>
-      <p>22 Years In Preconstruction - Skilled in Multiple Trades Spanning Several Disciplines — Excel Workbook, Marked-Up PDF, 48-hour Turnaround.</p>
+      <h1>Commercial quantity takeoffs, back in 48 hours.</h1>
+      <p>Building envelope, finishes, and structural steel — measured by hand, delivered as an Excel workbook and a marked-up PDF you can defend line by line.</p>
       <div class="hero-ctas">
         <a href="#contact" class="btn-primary">Send Your Plans</a>
+        <a href="#deliverable" class="btn-text">See a sample takeoff</a>
+      </div>
+
+      <div class="trust-strip">
+        <div class="t"><span class="k">Experience</span><span class="v">22 <small>years</small></span></div>
+        <div class="t"><span class="k">Turnaround</span><span class="v">48 <small>hours</small></span></div>
+        <div class="t"><span class="k">Trades</span><span class="v">11 <small>covered</small></span></div>
+        <div class="t"><span class="k">Estimators</span><span class="v">1 <small>— me</small></span></div>
       </div>
     </div>
 
@@ -360,24 +511,185 @@ nav .btn-nav:hover{color:var(--black);}
   </div>
 </section>
 
-<section class="deliv reveal">
+<section id="deliverable" class="deliv reveal">
   <div class="wrap">
     <div class="section-label">The Deliverable</div>
-    <h2>What you get</h2>
-    <div class="deliv-grid">
-      <div class="deliv-card">
-        <h3>Excel Workbook</h3>
-        <p>Organized by trade and area, ready for your own unit pricing.</p>
+    <h2>This is what lands in your inbox.</h2>
+    <p class="deliv-sub">Real takeoffs, measured from publicly posted plan sets. Every quantity traces back to a marked condition on the drawings — pick a trade and see for yourself.</p>
+
+    <div class="sample">
+
+      <div class="sample-pane">
+        <div class="pane-tag">
+          <span>Marked-up PDF</span>
+          <span class="badge zoom" id="planZoom">Click to enlarge</span>
+        </div>
+
+        <div class="plan-view" id="p-wp">
+          <a href="samples/markup-waterproofing.webp" target="_blank" rel="noopener" aria-label="Open the full marked-up waterproofing sheet">
+            <img class="plan-shot" src="samples/markup-waterproofing.webp" width="1600" height="1329" loading="lazy" decoding="async"
+                 alt="Marked-up elevation sheet A4.1 — fluid-applied air/weather barrier shaded in blue, openings and backer rod outlined, with a legend keying each colour to its measured quantity.">
+          </a>
+        </div>
+
+        <div class="plan-view" id="p-roof" hidden>
+          <a href="samples/markup-roofing.webp" target="_blank" rel="noopener" aria-label="Open the full marked-up roofing sheet">
+            <img class="plan-shot" src="samples/markup-roofing.webp" width="1600" height="1370" loading="lazy" decoding="async"
+                 alt="Marked-up roof plan A2.4A — EPDM field, crickets, walk pads and edge details each shaded a different colour, with a legend keying every colour to its measured quantity.">
+          </a>
+        </div>
+
+        <div class="plan-view" id="p-cmu" hidden>
+          <a href="samples/markup-masonry.webp" target="_blank" rel="noopener" aria-label="Open the full marked-up masonry sheet">
+            <img class="plan-shot" src="samples/markup-masonry.webp" width="1600" height="1207" loading="lazy" decoding="async"
+                 alt="Marked-up floor plan A-101 — CMU wall types and each grout-fill condition traced in a separate colour, with a legend keying every colour to its measured quantity.">
+          </a>
+        </div>
+
+        <div class="plan-view" id="p-steel" hidden>
+          <a href="samples/markup-structural-steel.webp" target="_blank" rel="noopener" aria-label="Open the full marked-up structural steel sheet">
+            <img class="plan-shot" src="samples/markup-structural-steel.webp" width="1600" height="1369" loading="lazy" decoding="async"
+                 alt="Marked-up main roof framing plan S2.3C — every beam, joist, bridging run and deck bay traced in its own colour, with a legend giving the measured linear feet of each member size.">
+          </a>
+        </div>
+
+        <div class="plan-view" id="p-gyp" hidden>
+          <a href="samples/markup-framing-drywall.webp" target="_blank" rel="noopener" aria-label="Open the full marked-up drywall sheet">
+            <img class="plan-shot" src="samples/markup-framing-drywall.webp" width="1600" height="1370" loading="lazy" decoding="async"
+                 alt="Marked-up second floor plan A2.2C — all eleven gypsum partition types traced in separate colours, with a legend giving the measured linear feet of each type.">
+          </a>
+        </div>
+
+        <div class="plan-caption">Every colour is a condition, keyed to its quantity. Click to open the sheet full size — then hand it to anyone who needs to see the math.</div>
       </div>
-      <div class="deliv-card">
-        <h3>Marked-Up PDF</h3>
-        <p>Every measured area labeled and traceable back to the plan set.</p>
+
+      <div class="sample-pane">
+        <div class="pane-tag">
+          <span>Excel workbook</span>
+          <span class="badge">Portfolio sample</span>
+        </div>
+
+        <div class="sample-tabs" role="tablist" aria-label="Sample takeoffs by trade">
+          <button role="tab" aria-selected="true"  aria-controls="s-wp"    data-plan="p-wp"    id="t-wp"    type="button">Waterproofing</button>
+          <button role="tab" aria-selected="false" aria-controls="s-roof"  data-plan="p-roof"  id="t-roof"  type="button">Roofing</button>
+          <button role="tab" aria-selected="false" aria-controls="s-cmu"   data-plan="p-cmu"   id="t-cmu"   type="button">Masonry</button>
+          <button role="tab" aria-selected="false" aria-controls="s-steel" data-plan="p-steel" id="t-steel" type="button">Steel</button>
+          <button role="tab" aria-selected="false" aria-controls="s-gyp"   data-plan="p-gyp"   id="t-gyp"   type="button">Drywall</button>
+        </div>
+
+        <div class="sample-panel" id="s-wp" role="tabpanel" aria-labelledby="t-wp">
+          <div class="sample-meta">
+            <strong>Dover High School / Career Technical Center</strong>
+            Dover, NH — measured from the city's publicly available plan set
+          </div>
+          <table class="qto">
+            <tr><td>Fluid-applied air/water-resistive barrier</td><td class="q">16,223 SF</td></tr>
+            <tr><td>Backer rod &amp; sealant</td><td class="q">3,023 LF</td></tr>
+            <tr><td>Fluid AWB treatment at openings</td><td class="q">2,669 LF</td></tr>
+            <tr><td>Below-grade dampproofing, rigid — 2 ft <span style="color:var(--steel)">(A6.2/03)</span></td><td class="q">898 SF</td></tr>
+            <tr><td>Counter flashing strip <span style="color:var(--steel)">(A6.1/02)</span></td><td class="q">567 LF</td></tr>
+            <tr><td>SOG edge sealant <span style="color:var(--steel)">(A6.1/03)</span></td><td class="q">449 LF</td></tr>
+            <tr><td>Thru-wall flash assembly — typical floor <span style="color:var(--steel)">(A6.1/05)</span></td><td class="q">410 LF</td></tr>
+            <tr><td>Head flash assembly <span style="color:var(--steel)">(A7.2/09)</span></td><td class="q">408 LF</td></tr>
+          </table>
+          <div class="sample-foot">
+            <span class="more">6 more conditions in the full sample</span>
+            <a class="dl" href="samples/caliper-sample-waterproofing.pdf" target="_blank" rel="noopener">Download full sample (PDF)</a>
+          </div>
+        </div>
+
+        <div class="sample-panel" id="s-roof" role="tabpanel" aria-labelledby="t-roof" hidden>
+          <div class="sample-meta">
+            <strong>Dover High School / Career Technical Center</strong>
+            Roof Plan A2.4A + A6-series details — 100% Conformed Set
+          </div>
+          <table class="qto">
+            <tr><td>EPDM roof system <span style="color:var(--steel)">(complete assembly)</span></td><td class="q">36,789 SF</td></tr>
+            <tr><td>Roof crickets <span style="color:var(--steel)">(measured separately)</span></td><td class="q">5,425 SF</td></tr>
+            <tr><td>Rubber walk pads, 3/16 in.</td><td class="q">2,511 SF</td></tr>
+            <tr><td>Roof edge conditions <span style="color:var(--steel)">(2 details)</span></td><td class="q">1,095 LF</td></tr>
+            <tr><td>Wall base flashing <span style="color:var(--steel)">(3 details)</span></td><td class="q">592 LF</td></tr>
+            <tr><td>Membrane roofing over plywood</td><td class="q">466 SF</td></tr>
+            <tr><td>RTU curbs</td><td class="q">410 LF</td></tr>
+            <tr><td>Penetrations &amp; equipment <span style="color:var(--steel)">(drains, fans, hatches, vents)</span></td><td class="q">34 EA</td></tr>
+          </table>
+          <div class="sample-foot">
+            <span class="more">Gutters, downspouts, sleepers &amp; hatch trim on the takeoff tab</span>
+            <a class="dl" href="samples/caliper-sample-roofing.pdf" target="_blank" rel="noopener">Download full sample (PDF)</a>
+          </div>
+        </div>
+
+        <div class="sample-panel" id="s-cmu" role="tabpanel" aria-labelledby="t-cmu" hidden>
+          <div class="sample-meta">
+            <strong>Campground Shower House Replacement</strong>
+            Montauk State Park, Salem, MO — from a publicly posted Missouri OA bid set
+          </div>
+          <table class="qto">
+            <tr><td>Ground face RB CMU wall, 9 ft <span style="color:var(--steel)">(A-101)</span></td><td class="q">3,134 SF</td></tr>
+            <tr><td>Grout fill — vertical course, 9 ft</td><td class="q">927 LF</td></tr>
+            <tr><td>Grout fill — top 2 courses at head-of-wall</td><td class="q">407 LF</td></tr>
+            <tr><td>Grout fill — courses #6 &amp; #7 AFF</td><td class="q">407 LF</td></tr>
+            <tr><td>Rated RB CMU wall, 9 ft <span style="color:var(--steel)">(A-101)</span></td><td class="q">349 SF</td></tr>
+            <tr><td>Rated RB CMU wall, 9 ft, grout full <span style="color:var(--steel)">(A-301)</span></td><td class="q">324 SF</td></tr>
+            <tr><td>Grout fill — above openings</td><td class="q">113 LF</td></tr>
+            <tr><td>Precast shower seat <span style="color:var(--steel)">(A4.02/10)</span></td><td class="q">17 LF</td></tr>
+          </table>
+          <div class="sample-foot">
+            <span class="more">2 more conditions in the full sample</span>
+            <a class="dl" href="samples/caliper-sample-masonry.pdf" target="_blank" rel="noopener">Download full sample (PDF)</a>
+          </div>
+        </div>
+
+        <div class="sample-panel" id="s-steel" role="tabpanel" aria-labelledby="t-steel" hidden>
+          <div class="sample-meta">
+            <strong>Dover High School — Building Part C, Ground to Roof</strong>
+            Framing plans S2.0C–S2.3C — W-shapes at exact mill weight, HSS/plate per AISC
+          </div>
+          <table class="qto">
+            <tr><td>All-in steel — total <span style="color:var(--steel)">(incl. joists, roof angle, deck)</span></td><td class="q">233.74 t</td></tr>
+            <tr><td>Fabricated steel — total <span style="color:var(--steel)">(columns, beams/HSS, braces, plates)</span></td><td class="q">205.18 t</td></tr>
+            <tr><td>Beams / HSS</td><td class="q">156.20 t</td></tr>
+            <tr><td>Columns</td><td class="q">35.39 t</td></tr>
+            <tr><td>Joists <span style="color:var(--steel)">(SJI approximate)</span></td><td class="q">27.96 t</td></tr>
+            <tr><td>Braces</td><td class="q">9.32 t</td></tr>
+            <tr><td>Connection / bearing plates <span style="color:var(--steel)">(base + gusset + thru)</span></td><td class="q">4.27 t</td></tr>
+            <tr><td>Metal deck</td><td class="q">44,867 SF</td></tr>
+          </table>
+          <div class="sample-foot">
+            <span class="more">Broken out by level and by member in the full sample</span>
+            <a class="dl" href="samples/caliper-sample-structural-steel.pdf" target="_blank" rel="noopener">Download full sample (PDF)</a>
+          </div>
+        </div>
+
+        <div class="sample-panel" id="s-gyp" role="tabpanel" aria-labelledby="t-gyp" hidden>
+          <div class="sample-meta">
+            <strong>Dover High School — Second Floor, Part C</strong>
+            Partition types A8.1, floor plan A2.2C, RCP A3.2C
+          </div>
+          <table class="qto">
+            <tr><td>Acoustical ceiling tile <span style="color:var(--steel)">(3 types: C1A / C1B / C1D)</span></td><td class="q">18,320 SF</td></tr>
+            <tr><td>Gyp partitions — <span style="color:var(--steel)">11 wall types, each measured separately</span></td><td class="q">2,223 LF</td></tr>
+            <tr><td>Gypsum ceilings <span style="color:var(--steel)">(incl. 122 SF rated)</span></td><td class="q">1,741 SF</td></tr>
+            <tr><td>Exposed-to-deck area <span style="color:var(--steel)">(no ceiling — flagged for coordination)</span></td><td class="q">329 SF</td></tr>
+            <tr><td>Plywood panel furring at data closets</td><td class="q">315 SF</td></tr>
+            <tr><td>Bulkheads <span style="color:var(--steel)">(3 ft and 6 ft skylite)</span> + beam wrap</td><td class="q">269 LF</td></tr>
+            <tr><td>Continuous wood blocking</td><td class="q">224 LF</td></tr>
+            <tr><td>Hollow metal frames <span style="color:var(--steel)">(installation count)</span></td><td class="q">26 EA</td></tr>
+          </table>
+          <div class="sample-foot">
+            <span class="more">Every partition priced to its wall type on the takeoff tab</span>
+            <a class="dl" href="samples/caliper-sample-framing-drywall.pdf" target="_blank" rel="noopener">Download full sample (PDF)</a>
+          </div>
+        </div>
+
       </div>
     </div>
+
     <div class="not-line">
       <strong>Quantities only — no pricing attached.</strong> I don't provide estimates or bids. You get accurate numbers and apply your own costs, so your pricing stays yours.
     </div>
-    <p style="margin-top:16px; color:var(--steel); font-size:.95rem;">Sole proprietor based in Ft. Worth, TX.  No subcontracted measuring, no offshore team - Every Takeoff is Mine.</p>
+
+    <p class="reachable">Always reachable if something's urgent.</p>
   </div>
 </section>
 
@@ -414,7 +726,7 @@ nav .btn-nav:hover{color:var(--black);}
 <section id="process" class="process reveal">
   <div class="wrap">
     <div class="section-label">How It Works</div>
-    <h2 class="section-title">Always reachable if something's urgent</h2>
+    <h2 class="section-title">Send the set. I take it from there.</h2>
     <div class="steps">
       <div class="step">
         <div class="step-num">1</div>
@@ -429,17 +741,58 @@ nav .btn-nav:hover{color:var(--black);}
       <div class="step">
         <div class="step-num">3</div>
         <h3>Excel + marked-up PDF</h3>
-        <p>You get a workbook you can price from and a marked-up PDF you can hand to anyone who questions a number.</p>
+        <p>You get a workbook you can price from and a marked-up PDF you can hand to anyone who needs to see the math.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="about-sec reveal">
+<section id="pricing" class="pricing reveal">
   <div class="wrap">
-    <div class="section-label">Experience</div>
-    <p>I've worked commercial and multi-family estimating for 22 years, focused on the trades most generalist estimators run thin on — <strong>waterproofing, roofing, insulation, stucco/EIFS, masonry, stone veneer, and glass and glazing</strong> — plus structural steel and the high-demand finishes: framing/drywall, doors, and flooring.</p>
-    <p>Sole proprietor based in Ft. Worth, TX.  No subcontracted measuring, no offshore team - Every Takeoff is Mine.</p>
+    <div class="section-label">Pricing</div>
+    <h2 class="section-title">How pricing works</h2>
+    <p class="pricing-sub">No subscription, no retainer, no per-seat software you have to learn. You send a set, I send a number, and you decide.</p>
+
+    <div class="price-grid">
+      <div class="price-card">
+        <h3>Quoted per job</h3>
+        <p>Priced off the actual set — how many sheets, which trades are in scope, and how much detail the drawings carry. A 40-sheet renovation and a 400-sheet ground-up aren't the same job, so they aren't the same price.</p>
+      </div>
+      <div class="price-card">
+        <h3>Confirmed before I start</h3>
+        <p>You get the scope, the turnaround, and the price up front, in writing. Nothing begins until you've agreed to all three. The meter is never running while you decide.</p>
+      </div>
+      <div class="price-card">
+        <h3>What's excluded is written down</h3>
+        <p>Every takeoff ships with Exclusions and Clarifications tabs alongside the numbers. You know exactly what was counted and what wasn't — before you price it, not after you've bid it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="about-sec reveal">
+  <div class="wrap">
+    <div class="section-label">Who does the work</div>
+    <h2 class="section-title">Caliper is one person.</h2>
+
+    <div class="note">
+      <figure class="portrait">
+        <img src="adam.png" width="420" height="420" loading="lazy" decoding="async"
+             alt="Adam Abshire, the estimator behind Caliper.">
+        <figcaption>Adam Abshire, Fort Worth, TX</figcaption>
+      </figure>
+
+      <div class="note-body">
+        <p>I've spent 22 years in commercial and multi-family preconstruction, focused on the trades most generalist estimators run thin on — <strong>waterproofing, roofing, insulation, stucco and EIFS, masonry, stone veneer, and glass and glazing</strong> — plus structural steel and the high-demand finishes: framing and drywall, doors, and flooring.</p>
+
+        <p>When you send a plan set, I'm the one who opens it. I'm the one who measures it. And I'm the one who answers your email. No subcontracted measuring, no offshore team — <strong>every takeoff is mine.</strong></p>
+
+        <p>Which means there's exactly one person to contact with any questions you may have.</p>
+
+        <p class="sig">Adam Abshire</p>
+        <p class="sig-name">Adam Abshire — Caliper, Quantity Takeoff Services</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -447,84 +800,193 @@ nav .btn-nav:hover{color:var(--black);}
   <div class="wrap">
     <div class="section-label">Get Started</div>
     <h2 class="section-title">Send your plans</h2>
-    <p class="sub">Two things are needed to get started: the form below with your project details, and the plan set sent by email. Both are required — one without the other can't be scoped.</p>
-    <div class="contact-grid">
-      <div class="contact-direct">
-        <div class="step-badge">Step 1</div>
-        <h3>Send the Plan Set</h3>
-        <p>Email the drawings (or a link to them) and note the trade(s) in scope. This is required alongside the form — not an alternative to it.</p>
-        <a href="mailto:adamc.abshire@gmail.com?subject=Takeoff%20Request" class="btn-primary" style="display:inline-block;">adamc.abshire@gmail.com</a>
-      </div>
-      <form class="form-card" id="caliperForm" novalidate>
-        <div class="step-badge">Step 2</div>
-        <h3 style="margin-bottom:16px;">Project Details</h3>
-        <div class="fld">
-          <label for="name">Your name</label>
-          <input type="text" id="name" name="name" autocomplete="name" required>
+    <p class="sub">Paste a link to the set, tell me which trades and when you need it. I'll come back with the scope, the turnaround, and the price before anything starts.</p>
+
+    <form class="form-card" id="caliperForm" novalidate>
+      <div class="fgrid">
+
+        <div class="fld full">
+          <label for="planlink">Plan set link</label>
+          <input type="url" id="planlink" name="planlink" placeholder="BuildingConnected, Procore, Dropbox, WeTransfer…">
+          <p class="hint">Most sets are too big to attach, so a link is easiest. Prefer to send the drawings straight over? Email them to <a href="mailto:adamc.abshire@gmail.com?subject=Takeoff%20Request%20%E2%80%94%20plan%20set">adamc.abshire@gmail.com</a> and I'll match them to this form.</p>
         </div>
-        <div class="fld">
-          <label for="company">Company</label>
-          <input type="text" id="company" name="company" autocomplete="organization">
+
+        <!-- Drag-and-drop uploader slots in here once a form backend is wired up
+             (Formspree / Tally / Netlify Forms). The link field above stays as the
+             fallback for plan sets too large for any free-tier upload cap. -->
+
+        <div class="fld full">
+          <label id="tradeLabel">Trade(s) in scope</label>
+          <div class="pillrow" id="tradePills" role="group" aria-labelledby="tradeLabel">
+            <button type="button" class="pill" aria-pressed="false">Waterproofing</button>
+            <button type="button" class="pill" aria-pressed="false">Roofing</button>
+            <button type="button" class="pill" aria-pressed="false">Insulation</button>
+            <button type="button" class="pill" aria-pressed="false">Stucco / EIFS</button>
+            <button type="button" class="pill" aria-pressed="false">Masonry</button>
+            <button type="button" class="pill" aria-pressed="false">Stone Veneer</button>
+            <button type="button" class="pill" aria-pressed="false">Glass &amp; Glazing</button>
+            <button type="button" class="pill" aria-pressed="false">Structural Steel</button>
+            <button type="button" class="pill" aria-pressed="false">Framing / Drywall</button>
+            <button type="button" class="pill" aria-pressed="false">Doors</button>
+            <button type="button" class="pill" aria-pressed="false">Flooring</button>
+            <button type="button" class="pill wide" aria-pressed="false" data-all="1">Full envelope package</button>
+          </div>
+          <input type="hidden" id="trade" name="trade">
+          <p class="hint">Pick as many as you need.</p>
         </div>
+
         <div class="fld">
-          <label for="trade">Trade(s) needed</label>
-          <select id="trade" name="trade" required>
-            <option value="" selected disabled>Pick one…</option>
-            <option>Waterproofing</option>
-            <option>Roofing</option>
-            <option>Insulation</option>
-            <option>Stucco / EIFS</option>
-            <option>Masonry / Stone Veneer</option>
-            <option>Glass &amp; Glazing</option>
-            <option>Structural Steel</option>
-            <option>Framing / Drywall</option>
-            <option>Doors</option>
-            <option>Flooring</option>
-            <option>Multiple / full envelope package</option>
-          </select>
+          <label for="needby">When do you need it?</label>
+          <input type="date" id="needby" name="needby">
+          <p class="hint">Bid date, if you have one. Standard turnaround is 48 hours.</p>
         </div>
+
         <div class="fld">
           <label for="email">Email</label>
           <input type="email" id="email" name="email" autocomplete="email" required>
         </div>
+
         <div class="fld">
-          <label for="message">Project notes</label>
-          <textarea id="message" name="message" placeholder="Plan set link, size, timeline — whatever's useful."></textarea>
+          <label for="name">Your name</label>
+          <input type="text" id="name" name="name" autocomplete="name" required>
         </div>
-        <button type="submit" class="btn-primary full">Send Details</button>
-        <div id="okMsg">Got it — I'll reply by email, usually within a business day.</div>
-        <div id="errMsg">Something didn't send. Email me directly instead: adamc.abshire@gmail.com</div>
-      </form>
-    </div>
+
+        <div class="fld">
+          <label for="company">Company</label>
+          <input type="text" id="company" name="company" autocomplete="organization">
+        </div>
+
+        <div class="fld full">
+          <label for="message">Project notes</label>
+          <textarea id="message" name="message" placeholder="Project name, size, anything unusual about the set."></textarea>
+        </div>
+
+      </div>
+
+      <button type="submit" class="btn-primary full">Send plans &amp; get a scope confirmation</button>
+      <div id="okMsg">Got it — I'll come back to you with scope and turnaround, usually within a business day.</div>
+      <div id="errMsg">Something didn't send. Email me directly instead: adamc.abshire@gmail.com</div>
+    </form>
+
+    <p class="contact-alt">Rather send the drawings straight over? Email <a href="mailto:adamc.abshire@gmail.com?subject=Takeoff%20Request">adamc.abshire@gmail.com</a> and I'll take it from there.</p>
   </div>
 </section>
 
-<footer>&copy; 2026 Caliper. Commercial &amp; multi-family quantity takeoffs. adamc.abshire@gmail.com</footer>
+<footer>
+  <div class="wrap">
+    <p class="tagline">Precision You Can Build On.</p>
+    <p class="fine">&copy; 2026 Caliper. Commercial &amp; multi-family quantity takeoffs. <a href="mailto:adamc.abshire@gmail.com">adamc.abshire@gmail.com</a></p>
+  </div>
+</footer>
 
 <script>
   var SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbxw6htmsBxeY5NPssrPzBvdyobXDDibQTTcj66xytJtqe-sssrsR2bMd1Phhr2HU2hh2w/exec";
+
+  var pills = Array.prototype.slice.call(document.querySelectorAll('#tradePills .pill'));
+  var tradeField = document.getElementById('trade');
+
+  function selectedTrades(){
+    return pills.filter(function(p){ return p.getAttribute('aria-pressed') === 'true'; })
+                .map(function(p){ return p.textContent.trim(); });
+  }
+
+  pills.forEach(function(pill){
+    pill.addEventListener('click', function(){
+      var on = pill.getAttribute('aria-pressed') === 'true';
+      pill.setAttribute('aria-pressed', on ? 'false' : 'true');
+
+      // "Full envelope package" and the individual trades are mutually exclusive
+      if(!on){
+        if(pill.dataset.all){
+          pills.forEach(function(p){ if(p !== pill) p.setAttribute('aria-pressed','false'); });
+        } else {
+          pills.forEach(function(p){ if(p.dataset.all) p.setAttribute('aria-pressed','false'); });
+        }
+      }
+      tradeField.value = selectedTrades().join(', ');
+    });
+  });
+
   document.getElementById('caliperForm').addEventListener('submit', function(e){
     e.preventDefault();
-    if(!this.checkValidity()){ this.reportValidity(); return; }
     var form = this;
     var errMsg = document.getElementById('errMsg');
     errMsg.classList.remove('show');
+
+    if(!form.checkValidity()){ form.reportValidity(); return; }
+
+    var trades = selectedTrades();
+    if(!trades.length){
+      errMsg.textContent = 'Pick at least one trade so I know what to count.';
+      errMsg.classList.add('show');
+      document.getElementById('tradePills').scrollIntoView({block:'center'});
+      return;
+    }
+    tradeField.value = trades.join(', ');
+
+    // The Sheet only has a notes column today, so fold the plan link and the
+    // bid date into it as well — that way nothing is lost if the Apps Script
+    // hasn't been given columns for them yet.
+    var parts = [];
+    if(form.planlink.value) parts.push('PLAN SET: ' + form.planlink.value);
+    if(form.needby.value)   parts.push('NEEDED BY: ' + form.needby.value);
+    if(form.message.value)  parts.push(form.message.value);
+
     var data = new URLSearchParams({
       name: form.name.value,
       company: form.company.value,
-      trade: form.trade.value,
+      trade: trades.join(', '),
       email: form.email.value,
-      message: form.message.value
+      message: parts.join('\n'),
+      planlink: form.planlink.value,
+      needby: form.needby.value
     });
+
     fetch(SHEET_ENDPOINT, { method:'POST', mode:'no-cors', body:data })
       .then(function(){
         form.style.display = 'none';
         document.getElementById('okMsg').classList.add('show');
       })
       .catch(function(){
+        errMsg.textContent = 'Something didn’t send. Email me directly instead: adamc.abshire@gmail.com';
         errMsg.classList.add('show');
       });
   });
+</script>
+
+<script>
+  (function(){
+    var tabs = Array.prototype.slice.call(document.querySelectorAll('.sample-tabs [role="tab"]'));
+    if(!tabs.length) return;
+
+    function select(tab){
+      tabs.forEach(function(t){
+        var on = (t === tab);
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        t.tabIndex = on ? 0 : -1;
+        document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+        var plan = document.getElementById(t.getAttribute('data-plan'));
+        if(plan) plan.hidden = !on;
+        if(on){
+          var zoom = document.getElementById('planZoom');
+          if(zoom) zoom.hidden = !plan || !plan.querySelector('img');
+        }
+      });
+    }
+
+    tabs.forEach(function(tab, i){
+      tab.tabIndex = tab.getAttribute('aria-selected') === 'true' ? 0 : -1;
+      tab.addEventListener('click', function(){ select(tab); });
+      tab.addEventListener('keydown', function(e){
+        var next = null;
+        if(e.key === 'ArrowRight') next = tabs[(i + 1) % tabs.length];
+        else if(e.key === 'ArrowLeft') next = tabs[(i - 1 + tabs.length) % tabs.length];
+        else if(e.key === 'Home') next = tabs[0];
+        else if(e.key === 'End') next = tabs[tabs.length - 1];
+        if(next){ e.preventDefault(); select(next); next.focus(); }
+      });
+    });
+  })();
 </script>
 
 <script>
