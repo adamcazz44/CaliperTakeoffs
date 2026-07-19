@@ -22,10 +22,15 @@
 <style>
 :root{
   --black:#0D1E30; --black-2:#14283F; --off:#EDEDE9;
-  --steel:#7C8A97; --cyan:#5FC9E8; --red:#D5473A; --grid:#20344C;
+  --steel:#7C8A97; --steel-ink:#8996A1; --cyan:#5FC9E8; --red:#D5473A; --grid:#20344C;
   --font-serif:'Fraunces', serif; --font-display:'Space Grotesk', sans-serif; --font-sans:'Inter', sans-serif;
   --maxw:1140px;
 }
+/* --steel measures 4.23:1 on --black-2, under the 4.5:1 AA minimum for body text (Mobbin
+   audit F4, 2026-07-19). Every panel with a --black-2 background re-scopes --steel to the
+   AA-safe --steel-ink so nested text (incl. inline spans in the sample tables) fixes at once. */
+.sample-pane, .price-card, .about-sec, .form-card, .faq-item, .sent{ --steel:var(--steel-ink); }
+
 *{box-sizing:border-box; margin:0; padding:0;}
 body{font-family:var(--font-sans); background:var(--black); color:var(--off); line-height:1.6;}
 .wrap{max-width:var(--maxw); margin:0 auto; padding:0 32px;}
